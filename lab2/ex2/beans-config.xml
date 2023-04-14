@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<bean id ="productA" class="lab2.ex2.Product"
+	p:productId="10001"
+	p:name = "dog"
+	p:description ="a dog"/>
+<bean id ="productB" class="lab2.ex2.Product" scope="prototype"
+	p:productId="10002"
+	p:name = "cat"
+	p:description ="a cat"/>
+<bean id="productList" class="lab2.ex2.ProductCollection">
+<property name="list">
+<list>
+	<ref bean="productA"/> 
+	<ref bean="productB"/> 
+</list>
+</property>
+<property name="map">
+	<map>
+		<entry key="productA" value-ref="productA" />
+		<entry>
+			<key>
+				<value>productB</value>
+			</key>
+			<ref bean="productB"></ref>
+		</entry>
+	</map>
+</property>
+</bean>
+<bean id="productFactory" class="lab2.ex2.ProductFactory"/>
+<bean id="product" class ="lab2.ex2.Product" factory-bean="productFactory" factory-method="getInstance"></bean>
+</beans>
